@@ -5,6 +5,9 @@ import string
 class DatabaseManager:
     def __init__(self, database: str):
         self.connection = sqlite3.connect(database, check_same_thread=False)
+        f = open('config/forbidden_urls.config', 'r')
+        self.forbidden_url = f.readlines()
+        f.close()
 
     def shorten(self, url: str):
         cursor = self.connection.cursor()
@@ -15,7 +18,7 @@ class DatabaseManager:
                 'SELECT id FROM urls WHERE new=?;',
                 (new_url, )
             )
-            exists = cursor.rowcount != -1
+            exists = (cursor.rowcount != -1) or (new_url in self.forbidden_url)
             if exists:
                 cursor.execute(
                     'SELECT COUNT(*) FROM urls ' +

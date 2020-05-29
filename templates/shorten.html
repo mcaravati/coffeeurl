@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Shortened</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 </head>
 <body>
-    <h1>Shortened url : {{ shortened_url }}</h1>
+    <h2>Shortened url : <a href="http://{{ root }}/{{ shortened_url }}">http://{{ root }}/{{ shortened_url }}</a></h2>
 </body>
 </html>

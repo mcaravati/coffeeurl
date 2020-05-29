@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Coffee URL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 </head>
 <body>
-    <h1>Enter the URL you want to shorten :</h1>
-    <form action="/shorten" method="post" target="_blank">
-        <input type="text" id="to_replace" name="to_replace" >
+    <h1>CoffeeURL</h1>
+    <h2>Enter the URL you want to shorten :</h2>
+    <form class="form__group field" action="/shorten" method="post" target="_self" autocomplete="off">
+        <input type="text" class="form__field" placeholder="URL" name="to_replace" id='url' required/>
+        <label for="url" class="form__label">URL</label>
         <input type="submit" value="Submit">
     </form>
 </body>
