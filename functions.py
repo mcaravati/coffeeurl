@@ -2,6 +2,7 @@ import sqlite3
 import random
 import string
 
+
 class DatabaseManager:
     def __init__(self, database: str):
         self.connection = sqlite3.connect(database, check_same_thread=False)
@@ -59,7 +60,8 @@ class DatabaseManager:
             'WHERE new=?;',
             (url, )
         )
-        return cursor.fetchone()[0]
+        tmp = cursor.fetchone()
+        return tmp[0] if tmp else "."
 
 
 def generate_random_url(length: int = 4):

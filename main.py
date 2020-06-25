@@ -5,15 +5,15 @@ from functions import DatabaseManager
 from gevent.pywsgi import WSGIServer
 
 APP = Flask(__name__, template_folder="templates")
-
+PORT = 8080
 DB = DatabaseManager('databases/urls.db')
 DB.build()
-APP.config["SERVER_NAME"] = "localhost:8080"
+APP.config["SERVER_NAME"] = "localhost:{0}".format(PORT)
 
 
 @APP.route('/')
 def root():
-    response= make_response(render_template("index.html"))
+    response = make_response(render_template("index.html"))
     response.headers["Cache-Control"] = 'no-cache, no-store, must-revalidate'
     response.headers["Pragma"] = "no-cache"
     return response
@@ -43,5 +43,5 @@ def bad_request():
     return render_template("bad_request.html")
 
 
-SERVER = WSGIServer(("0.0.0.0", 8080), APP)
+SERVER = WSGIServer(("0.0.0.0", PORT), APP)
 SERVER.serve_forever()
